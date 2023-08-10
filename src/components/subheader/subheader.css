@@ -1,0 +1,13 @@
+.subheader{
+    width :98%;
+    color: black;
+    height: 50px;
+    background-color: hsl(0, 21%, 21%);
+    padding-left: 20px;
+    border-radius: 10px;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+}
