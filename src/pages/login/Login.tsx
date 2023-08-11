@@ -21,9 +21,8 @@ const Login: FC = () => {
         <img src='assets/img/banner.png' className='image'></img>
       </div>
       <div className='rightside'>
-        <img src='assets/img/kv-logo.png' className='logo'></img>
+        <img src='assets/img/kv-logo.png' className='logo2'></img>
         <Input
-          label='Username'
           type='text'
           value={username}
           placeholder='Username'
@@ -32,7 +31,6 @@ const Login: FC = () => {
           }}
         />
         <Input
-          label='Password'
           type='password'
           value={password}
           placeholder='Password'

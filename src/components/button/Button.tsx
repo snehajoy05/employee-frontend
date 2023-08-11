@@ -10,8 +10,9 @@ type InputPropType = {
 const Button: FC<InputPropType> = (props) => {
   return (
     <div>
-      <label>Login</label>
-      <input type='button' onClick={props.onClick} className='button' />
+      <button type='button' onClick={props.onClick} className='button'>
+        {props.label}
+      </button>
     </div>
   );
 };

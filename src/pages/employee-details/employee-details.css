@@ -1,0 +1,14 @@
+.empdetails{
+    margin-top: 40px;
+margin-left: 30px;
+width: 1275px;
+height: 232px;
+
+background: #FDFDFD 0% 0% no-repeat padding-box;
+box-shadow: 0px 3px 6px #9D9D9D29;
+border-radius: 10px;
+opacity: 1;
+display: flex;
+flex-wrap: wrap;
+
+}

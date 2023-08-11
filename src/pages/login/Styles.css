@@ -9,12 +9,25 @@
     border: 1px solid #B4B7BD;
     border-radius: 5px;
     opacity: 1;
+    margin-top: 10px;
 }
 .rightside{
-    margin-left: 400px;
-    margin-top:400px
+    margin-left: 300px;
+    margin-top:300px;
 }
 .container{
     display:flex;
     flex-direction: row;
+}
+.leftside{
+    display: flex;
+    margin-top: 70px;
+    margin-left: 60px;
+    height: 800px;
+    margin-bottom: 30px;
+    /* background-color: #03AEEE; */
+
+}
+.logo2{
+width:204px
 }

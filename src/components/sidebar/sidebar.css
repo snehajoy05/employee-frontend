@@ -1,5 +1,5 @@
 .sidebar{
-    margin-top: -90px;
+    margin-top: -97px;
 margin-left: -20px;
 width: 300px;
 height: 1080px;
@@ -10,10 +10,10 @@ background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0px 3px 6px #00000029;
 opacity: 1;
 }
-.logo{
+.logo1{
     width: 85%;
     margin-left: 15px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 .icon_container{
     width:35px;
@@ -34,6 +34,9 @@ opacity: 1;
 .text{
     color: #fff;
     margin:15px;
+    font: normal normal bold 16px/22px Nunito Sans;
+    letter-spacing: 0px;
+    color: #FFFFFF;
 
 }
 .box1{
@@ -48,8 +51,9 @@ opacity: 1;
     margin-top: 20px;
 }
 .logo-box{
-    width: 90%;
-    margin-left: 30px;
-    margin-top: 10px;
-    background-color: aquamarine;
+    width: 93.4%;
+    margin-left: 20px;
+    margin-top: 20px;
+    height: 77px;
+    background: rgb(246,247,251) 0% 0% no-repeat padding-box;
 }

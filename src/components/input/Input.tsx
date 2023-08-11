@@ -5,7 +5,6 @@ import './Styles.css';
 type InputPropType = {
   value: string;
   onChange: (e) => void;
-  label: string;
   type: 'text' | 'password';
   placeholder: string;
 };
@@ -13,7 +12,7 @@ type InputPropType = {
 const Input: FC<InputPropType> = (props) => {
   return (
     <div>
-      <label>{props.label}</label>
+      <label></label>
       <input
         type={props.type}
         onChange={props.onChange}

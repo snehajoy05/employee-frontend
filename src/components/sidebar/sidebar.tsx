@@ -6,12 +6,12 @@ const Sidebar: FC = () => {
     <div className='sidebar'>
       <div className='logo-box'>
         <div className='logo'>
-          <img src='assets/img/kv-logo.png' className='logo'></img>
+          <img src='/assets/img/kv-logo.png' className='logo1'></img>
         </div>
       </div>
       <div className='box1'>
         <div className='icon_container'>
-          <img src='assets/img/Group 18536.svg' className='icon'></img>
+          <img src='/assets/img/Group 18536.svg' className='icon'></img>
         </div>
         <div className='text'>Employee List</div>
       </div>
