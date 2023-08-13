@@ -14,7 +14,9 @@ border-radius: 10px;
 opacity: 1;
 display: flex;
 align-items:center;
+font-weight: bold;
 }
 .entries{
-    flex-grow: 1;
+    /* flex-grow: 1; */
+    width:15%
 }

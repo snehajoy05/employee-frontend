@@ -24,6 +24,7 @@ const Login: FC = () => {
         <img src='assets/img/kv-logo.png' className='logo2'></img>
         <Input
           type='text'
+          label='Username'
           value={username}
           placeholder='Username'
           onChange={(e) => {
@@ -32,6 +33,7 @@ const Login: FC = () => {
         />
         <Input
           type='password'
+          label='Password'
           value={password}
           placeholder='Password'
           onChange={(e) => {

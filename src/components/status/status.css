@@ -1,4 +1,11 @@
 .status{
-background: #D3F4BE 0% 0% no-repeat padding-box;
-opacity: 1;
+    border-radius: 30px;
+    background-color: #D3F4BE;
+    color: #183072;
+    width: 40%;
+    height: 30px;
+    margin-top: -8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
+import Status from '../status/status';
 
 type TablerowsPropType = {
   rows: {
@@ -22,7 +23,9 @@ const Tablerows: FC<TablerowsPropType> = (props) => {
       <div className='entry'>{id}</div>
       <div className='entry'>{joiningDate}</div>
       <div className='entry'>{role}</div>
-      <div className='entry'>Active</div>
+      <div className='entry'>
+        <Status />
+      </div>
       <div className='entry'>{experience}</div>
       <div className='entry'>Action</div>
     </div>

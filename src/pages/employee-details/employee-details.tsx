@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import Layout from '../../Layout/Layout';
-import Subheader from '../../components/subheader/subheader';
 import './employee-details.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Empcontent from '../../components/Empdetails/empdetails';
 
 const data = [
@@ -13,12 +12,12 @@ const data = [
     experience: 10,
     role: 'Full Stack',
     address: {
-      addressLine1: 'Edachira',
-      addressLine2: 'Kakkanad',
+      line1: 'Edachira',
+      line2: 'Kakkanad',
       city: 'Ernakulam',
       state: 'Kerala',
       country: 'India',
-      pincode: '682025'
+      pin: '682025'
     }
   },
   {
@@ -28,12 +27,12 @@ const data = [
     experience: 5,
     role: 'Frontend',
     address: {
-      addressLine1: 'Junction',
-      addressLine2: 'Kakkanad',
+      line1: 'Junction',
+      line2: 'Kakkanad',
       city: 'Ernakulam',
       state: 'Kerala',
       country: 'India',
-      pincode: '682054'
+      pin: '682054'
     }
   }
 ];
@@ -41,20 +40,34 @@ const data = [
 const Empdetails: FC = () => {
   const { id } = useParams();
   const emp = data.find((employee) => employee.id === Number(id));
+  const navigate = useNavigate();
 
   return (
     <div>
       <Layout>
-        <Subheader label='Employee Details' />
+        <div className='edit-subheader'>
+          <div className='title'>Employee Details</div>
+          <button
+            type='button'
+            onClick={() => navigate(`/employee/${id}/edit`)}
+            className='edit_employee'
+          >
+            <div className='blue'></div>
+            <div>
+              <img src='/assets/img/Path 327.svg' className='pencil'></img>
+            </div>
+            <div className='pencil-text'>Edit</div>
+          </button>
+        </div>
         <div className='empdetails'>
           <Empcontent label='Employee Name' value={emp.name} />
           <Empcontent label='Joining Date' value={emp.joiningDate} />
           <Empcontent label='Experience' value={emp.experience} />
           <Empcontent label='Role' value={emp.role} />
-          <Empcontent label='Status' value='Active' />
+          <Empcontent label='Status' value={null} />
           <Empcontent
             label='Address'
-            value={`${emp.address.addressLine1},${emp.address.addressLine2},${emp.address.city},${emp.address.country},${emp.address.pincode},${emp.address.state}`}
+            value={`${emp.address.line1},${emp.address.line2},${emp.address.city},${emp.address.country},${emp.address.pin},${emp.address.state}`}
           />
           <Empcontent label='Employee ID' value={id} />
         </div>

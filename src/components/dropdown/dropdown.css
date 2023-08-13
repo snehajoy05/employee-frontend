@@ -1,0 +1,21 @@
+
+.options{
+    top: 497px;
+    left: 1193px;
+    width: 460px;
+    height: 50px;
+    
+    /* UI Properties */
+border: 1px solid #D9D9D9;
+opacity: 1;
+border-radius: 5px;
+margin-right: 30px;
+background: #FDFDFD 0% 0% no-repeat padding-box;
+padding-left: 20px;
+margin-top: 10px;
+    }
+    .dropdown{
+        flex-direction: column;
+        display: flex;
+        margin-top: 30px;
+    }
