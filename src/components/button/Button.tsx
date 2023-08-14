@@ -2,15 +2,15 @@ import React from 'react';
 import { FC } from 'react';
 import './Button.css';
 
-type InputPropType = {
-  onClick: () => void;
+export type ButtonPropType = {
+  onClick?: () => void;
   label: string;
 };
 
-const Button: FC<InputPropType> = (props) => {
+const Button: FC<ButtonPropType> = (props) => {
   return (
     <div>
-      <button type='button' onClick={props.onClick} className='button'>
+      <button type='button' onClick={props.onClick} className='button' data-testid='button-test'>
         {props.label}
       </button>
     </div>

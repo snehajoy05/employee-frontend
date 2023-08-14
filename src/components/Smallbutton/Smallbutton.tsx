@@ -2,8 +2,8 @@ import React from 'react';
 import { FC } from 'react';
 import './Smallbutton.css';
 
-type InputPropType = {
-  onClick: (e) => void;
+export type InputPropType = {
+  onClick?: (e) => void;
   label: string;
   color: 'blue' | 'white';
 };
@@ -13,7 +13,7 @@ const SmallButton: FC<InputPropType> = (props) => {
 
   return (
     <div>
-      <button type='button' onClick={props.onClick} className={buttonName}>
+      <button type='button' onClick={props.onClick} className={buttonName} data-testid='label-id'>
         {props.label}
       </button>
     </div>
