@@ -3,43 +3,14 @@ import Layout from '../../Layout/Layout';
 import './employee-details.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Empcontent from '../../components/Empdetails/empdetails';
-
-const data = [
-  {
-    id: 1,
-    name: 'Ash',
-    joiningDate: '11/02/2001',
-    experience: 10,
-    role: 'Full Stack',
-    address: {
-      line1: 'Edachira',
-      line2: 'Kakkanad',
-      city: 'Ernakulam',
-      state: 'Kerala',
-      country: 'India',
-      pin: '682025'
-    }
-  },
-  {
-    id: 2,
-    name: 'Tom',
-    joiningDate: '11/02/2015',
-    experience: 5,
-    role: 'Frontend',
-    address: {
-      line1: 'Junction',
-      line2: 'Kakkanad',
-      city: 'Ernakulam',
-      state: 'Kerala',
-      country: 'India',
-      pin: '682054'
-    }
-  }
-];
+import { useSelector } from 'react-redux';
 
 const Empdetails: FC = () => {
+  const employeesData = useSelector((state: any) => {
+    return state.employees;
+  });
   const { id } = useParams();
-  const emp = data.find((employee) => employee.id === Number(id));
+  const emp = employeesData.find((employee) => employee.id === Number(id));
   const navigate = useNavigate();
 
   return (

@@ -11,13 +11,9 @@ const Dropdown: FC<DropdownPropstype> = (props) => {
   return (
     <div className='dropdown'>
       <label>{props.label}</label>
-      <select className='options'>
-        <option placeholder={props.placeholder} onChange={props.onChange} value={props.value}>
-          a
-        </option>
-        <option placeholder={props.placeholder} onChange={props.onChange} value={props.value}>
-          b
-        </option>
+      <select className='options' onChange={props.onChange} value={props.value}>
+        <option>a</option>
+        <option>b</option>
       </select>
     </div>
   );

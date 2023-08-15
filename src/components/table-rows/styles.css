@@ -17,6 +17,10 @@
     
     .entry{
         /* flex-grow: 1; */
-        width:15%
+        width:15%;
+
     }
-    
+    .edit1{
+        margin-left: 20px;
+    }
+   

@@ -1,6 +1,7 @@
-import { useState, type FC } from 'react';
+import { useState, type FC, useEffect } from 'react';
 import './details.css';
 import Input from '../../components/input/Input';
+import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from '../dropdown/dropdown';
 import SmallButton from '../Smallbutton/Smallbutton';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,13 +17,86 @@ const Details: FC = () => {
   //     { value: 'qa', label: 'QA' },
   //     { value: 'ui', label: 'UI' }
   //   ];
-  const [address, setAddress] = useState(null);
+  const [city, setCity] = useState('');
   const [line1, setLine1] = useState('');
   const [line2, setLine2] = useState('');
-  const [status, setStatus] = useState('');
+  // const [status, setStatus] = useState('');
   const [role, setRole] = useState('');
   const { id } = useParams();
+
   const navigate = useNavigate();
+  const handleSubmit = () => {
+    dispatch({
+      type: 'EMPLOYEE:CREATE',
+      payload: {
+        employees: {
+          id: 3,
+          name,
+          joiningDate: date,
+          experience,
+          role,
+          address: {
+            line1,
+            line2,
+            city: 'Ernakulam',
+            state: 'Kerala',
+            country: 'India',
+            pin: '682054'
+          }
+        }
+      }
+    });
+  };
+  const handleEdit = (e, id) => {
+    e.stopPropagation();
+    if (id) {
+      const employeeToUpdate = employeesData.find((employee) => employee.id === Number(id));
+
+      if (employeeToUpdate) {
+        const updatedEmployee = {
+          id: employeeToUpdate.id,
+          name,
+          joiningDate: date,
+          experience,
+          role,
+          address: {
+            line1,
+            line2,
+            city,
+            state: 'Kerala',
+            country: 'India',
+            pin: '682054'
+          }
+        };
+
+        dispatch({
+          type: 'EMPLOYEE:EDIT',
+          payload: {
+            employees: updatedEmployee
+          }
+        });
+      }
+    }
+  };
+
+  const dispatch = useDispatch();
+  const employeesData = useSelector((state: any) => {
+    return state.employees;
+  });
+
+  useEffect(() => {
+    const emp = employeesData.find((employee) => employee.id === Number(id));
+
+    if (emp) {
+      setName(emp.name);
+      setDate(emp.joiningDate);
+      setExperience(emp.experience);
+      setRole(emp.role);
+      setLine1(emp.address.line1);
+      setLine2(emp.address.line2);
+      setCity(emp.address.city);
+    }
+  }, [id]);
 
   //   const rolechoice = [
   //     { value: 'admin', label: 'Admin' },
@@ -73,28 +147,15 @@ const Details: FC = () => {
           onChange={(e) => setRole(e.target.value)}
           placeholder='Choose Role'
         />
-        <Dropdown
-          label='Status'
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          placeholder='Status'
-        />
+        <Input label='Status' type='text' value='Active' onChange={() => {}} placeholder='Status' />
+
         <div className='address'>
           <Input
             label='Address'
             type='text'
-            placeholder='Flat No./House No.'
-            value={address}
-            onChange={function (e: any) {
-              setAddress(e.target.value);
-            }}
-          />
-          <input
-            className='address-lines'
-            type='text'
+            placeholder='Address Line 1'
             value={line1}
-            placeholder='Address line 1'
-            onChange={(e) => {
+            onChange={function (e: any) {
               setLine1(e.target.value);
             }}
           />
@@ -105,6 +166,15 @@ const Details: FC = () => {
             placeholder='Address line 2'
             onChange={(e) => {
               setLine2(e.target.value);
+            }}
+          />
+          <input
+            className='address-lines'
+            type='text'
+            value={city}
+            placeholder='City'
+            onChange={(e) => {
+              setCity(e.target.value);
             }}
           />
         </div>
@@ -120,7 +190,11 @@ const Details: FC = () => {
       </div>
 
       <div className='click'>
-        <SmallButton label={id ? 'Save' : 'Create'} color='blue' onClick={() => {}} />
+        <SmallButton
+          label={id ? 'Save' : 'Create'}
+          color='blue'
+          onClick={id ? (e) => handleEdit(e, id) : handleSubmit}
+        />
         <SmallButton label='Cancel' color='white' onClick={() => navigate(`/employee`)} />
       </div>
     </div>
