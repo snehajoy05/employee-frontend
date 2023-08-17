@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from '../dropdown/dropdown';
 import SmallButton from '../Smallbutton/Smallbutton';
 import { useNavigate, useParams } from 'react-router-dom';
+import { addEmployee, editEmployee } from '../../actions/employeeAction';
 
 const Details: FC = () => {
   const [name, setName] = useState(null);
@@ -26,9 +27,8 @@ const Details: FC = () => {
 
   const navigate = useNavigate();
   const handleSubmit = () => {
-    dispatch({
-      type: 'EMPLOYEE:CREATE',
-      payload: {
+    dispatch(
+      addEmployee({
         employees: {
           id: 3,
           name,
@@ -38,14 +38,14 @@ const Details: FC = () => {
           address: {
             line1,
             line2,
-            city: 'Ernakulam',
+            city,
             state: 'Kerala',
             country: 'India',
             pin: '682054'
           }
         }
-      }
-    });
+      })
+    );
   };
   const handleEdit = (e, id) => {
     e.stopPropagation();
@@ -69,12 +69,11 @@ const Details: FC = () => {
           }
         };
 
-        dispatch({
-          type: 'EMPLOYEE:EDIT',
-          payload: {
+        dispatch(
+          editEmployee({
             employees: updatedEmployee
-          }
-        });
+          })
+        );
       }
     }
   };

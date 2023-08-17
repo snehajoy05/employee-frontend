@@ -1,8 +1,10 @@
-import { useState, type FC } from 'react';
+import { useState, type FC, useEffect } from 'react';
 import './Styles.css';
 import Input from '../../components/input/Input';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
+import { useLoginMutation } from './api';
+import { useNavigate } from 'react-router-dom';
 
 const Login: FC = () => {
   const [username, setUsername] = useState(null);
@@ -10,9 +12,19 @@ const Login: FC = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
 
+  const [login, { data, isSuccess }] = useLoginMutation();
+
+  useEffect(() => {
+    if (data && isSuccess) localStorage.setItem('token', data.data);
+  }, [data, isSuccess]);
+
   const onSubmit = () => {
-    if (username && password) navigate('/employee');
-    else setError(true);
+    if (username && password) {
+      login({ username, password });
+      navigate(`/employee`);
+    } else {
+      setError(true);
+    }
   };
 
   return (

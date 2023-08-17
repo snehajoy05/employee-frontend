@@ -3,6 +3,7 @@ import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import Status from '../status/status';
 import { useDispatch } from 'react-redux';
+import { deleteEmployee } from '../../actions/employeeAction';
 
 type TablerowsPropType = {
   rows: {
@@ -19,14 +20,13 @@ const Tablerows: FC<TablerowsPropType> = (props) => {
   const navigate = useNavigate();
   const handledelete = (e, id) => {
     e.stopPropagation();
-    dispatch({
-      type: 'EMPLOYEE:DELETE',
-      payload: {
+    dispatch(
+      deleteEmployee({
         employees: {
           id
         }
-      }
-    });
+      })
+    );
   };
   const handleProp = (e) => {
     e.stopPropagation();

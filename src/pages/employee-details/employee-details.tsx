@@ -1,17 +1,30 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Layout from '../../Layout/Layout';
 import './employee-details.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Empcontent from '../../components/Empdetails/empdetails';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { Employee, useGetEmployeeDetailsQuery } from '../employee/api';
 
 const Empdetails: FC = () => {
-  const employeesData = useSelector((state: any) => {
-    return state.employees;
-  });
+  // const emp?loyeesData = useSelector((state: any) => {
+  //   return state.emp?loyees;
+  // });
+
   const { id } = useParams();
-  const emp = employeesData.find((employee) => employee.id === Number(id));
+  const { data, isSuccess } = useGetEmployeeDetailsQuery(id);
+
+  console.log(data);
+  const [emp, setEmp] = useState<Employee>();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data && isSuccess) {
+      const details = data.data;
+
+      setEmp(details);
+    }
+  }, [data, isSuccess]);
 
   return (
     <div>
@@ -31,14 +44,14 @@ const Empdetails: FC = () => {
           </button>
         </div>
         <div className='empdetails'>
-          <Empcontent label='Employee Name' value={emp.name} />
-          <Empcontent label='Joining Date' value={emp.joiningDate} />
-          <Empcontent label='Experience' value={emp.experience} />
-          <Empcontent label='Role' value={emp.role} />
+          <Empcontent label='Employee Name' value={emp?.name} />
+          <Empcontent label='Joining Date' value={emp?.joiningDate} />
+          <Empcontent label='Experience' value={emp?.experience} />
+          <Empcontent label='Role' value={emp?.role} />
           <Empcontent label='Status' value={null} />
           <Empcontent
             label='Address'
-            value={`${emp.address.line1},${emp.address.line2},${emp.address.city},${emp.address.country},${emp.address.pin},${emp.address.state}`}
+            value={`${emp?.address.line1},${emp?.address.line2},${emp?.address.city},${emp?.address.country},${emp?.address.pin},${emp?.address.state}`}
           />
           <Empcontent label='Employee ID' value={id} />
         </div>
