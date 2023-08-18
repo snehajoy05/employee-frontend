@@ -1,0 +1,38 @@
+.create-subheader{
+    margin-top: 20px;
+    left: 323px;
+    width: 82vw;
+    height: 65px;
+    margin-left: 25px;
+    margin-right: 25px;
+    
+    padding: 20px;
+    background: #FDFDFD 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #9D9D9D29;
+    border-radius: 10px;
+    opacity: 1;
+    display: flex;
+    align-items:center;
+}
+.head{
+    font: normal normal bold 20px/32px Nunito Sans;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+}
+.createdetails{
+    margin-top: 40px;
+margin-left: 30px;
+width: 82vw;;
+height: 532px;
+
+background: #FDFDFD 0% 0% no-repeat padding-box;
+box-shadow: 0px 3px 6px #9D9D9D29;
+border-radius: 10px;
+opacity: 1;
+display: flex;
+flex-wrap: wrap;
+padding: 20px;
+
+}

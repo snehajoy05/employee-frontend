@@ -1,0 +1,65 @@
+.subheader{
+    margin-top: 20px;
+    left: 323px;
+    width: 82vw;
+    height: 65px;
+    margin-left: 25px;
+    margin-right: 25px;
+    
+    padding: 20px;
+    background: #FDFDFD 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #9D9D9D29;
+    border-radius: 10px;
+    opacity: 1;
+    display: flex;
+    align-items:center;
+}
+.heading{
+    font: normal normal bold 20px/32px Nunito Sans;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+}
+
+.create_employee{
+    margin-top: 1px;
+margin-left: 1000px;
+width: 240px;
+height: 50px;
+
+background: #EAF9FF 0% 0% no-repeat padding-box;
+border-radius: 50px;
+opacity: 1;
+border: none;
+display: flex;
+}
+.eclipse{
+    top: 112px;
+left: 1618px;
+width: 50px;
+height: 50px;
+background-color: #03AEEE;
+border-radius: 50%;
+}
+.plus{
+    top: 119px;
+left: 1618px;
+width: 22px;
+height: 37px;
+margin-left: -40px;
+margin-top: 5px;
+}
+.button-text{
+    margin-top: 15px;
+margin-left: 10px;
+width: 156px;
+height: 27px;
+font-size: 17px;
+
+text-align: left;
+/* font: normal normal normal 20px/27px Nunito Sans; */
+letter-spacing: 0px;
+color: #1F1F1F;
+opacity: 1;
+}
