@@ -1,108 +1,160 @@
 import { useState, type FC, useEffect } from 'react';
 import './details.css';
 import Input from '../../components/input/Input';
-import { useDispatch, useSelector } from 'react-redux';
+//import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from '../dropdown/dropdown';
 import SmallButton from '../Smallbutton/Smallbutton';
 import { useNavigate, useParams } from 'react-router-dom';
-import { addEmployee, editEmployee } from '../../actions/employeeAction';
+//import { editEmployee } from '../../actions/employeeAction';
+import { useCreateMutation, useEditMutation } from '../../pages/create-employee/api';
+import {
+  useGetDepartmentListQuery,
+  useGetRoleListQuery,
+  useLazyGetEmployeeDetailsQuery
+} from '../../pages/employee/api';
 
 const Details: FC = () => {
   const [name, setName] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
   const [date, setDate] = useState(null);
   const [experience, setExperience] = useState(null);
-  const [department, setDepartment] = useState('');
+  const [department, setDepartment] = useState(null);
 
-  //   const departmentchoice = [
-  //     { value: 'product', label: 'Product' },
-  //     { value: 'qa', label: 'QA' },
-  //     { value: 'ui', label: 'UI' }
-  //   ];
+  const { data: deptdata } = useGetDepartmentListQuery();
+
+  const departmentchoice =
+    deptdata?.map((department) => ({
+      value: department.id,
+      label: department.department_name
+    })) || [];
+
+  const { data: roledata } = useGetRoleListQuery();
+
+  const rolechoice = roledata
+    ? Object.values(roledata)?.map((role: string) => ({
+        value: role,
+        label: role
+      }))
+    : [];
+
   const [city, setCity] = useState('');
   const [line1, setLine1] = useState('');
   const [line2, setLine2] = useState('');
-  // const [status, setStatus] = useState('');
+  const [pin, setPin] = useState('');
+  const [state, setState] = useState('');
+  const [country, setCountry] = useState('');
+
+  const [error, setError] = useState('');
+
   const [role, setRole] = useState('');
   const { id } = useParams();
 
+  const [create, { isSuccess, isError }] = useCreateMutation();
+  const [getEmployeeById, { data: employeeData }] = useLazyGetEmployeeDetailsQuery();
+
+  const [edit, { isSuccess: isEditSuccess }] = useEditMutation();
+
   const navigate = useNavigate();
   const handleSubmit = () => {
-    dispatch(
-      addEmployee({
-        employees: {
-          id: 3,
-          name,
-          joiningDate: date,
-          experience,
-          role,
-          address: {
-            line1,
-            line2,
-            city,
-            state: 'Kerala',
-            country: 'India',
-            pin: '682054'
-          }
+    // eslint-disable-next-line no-debugger
+    debugger;
+    if (
+      name &&
+      username &&
+      password &&
+      date &&
+      experience &&
+      role &&
+      line1 &&
+      line2 &&
+      city &&
+      state &&
+      country &&
+      pin
+    )
+      create({
+        name: name,
+        username: username,
+        password: password,
+        joiningDate: date,
+        experience: Number(experience),
+        departmentId: Number(department),
+        role: role,
+        address: {
+          line1: line1,
+          line2: line2,
+          city: city,
+          pin: pin,
+          state: state,
+          country: country
         }
-      })
-    );
-  };
-  const handleEdit = (e, id) => {
-    e.stopPropagation();
-    if (id) {
-      const employeeToUpdate = employeesData.find((employee) => employee.id === Number(id));
-
-      if (employeeToUpdate) {
-        const updatedEmployee = {
-          id: employeeToUpdate.id,
-          name,
-          joiningDate: date,
-          experience,
-          role,
-          address: {
-            line1,
-            line2,
-            city,
-            state: 'Kerala',
-            country: 'India',
-            pin: '682054'
-          }
-        };
-
-        dispatch(
-          editEmployee({
-            employees: updatedEmployee
-          })
-        );
-      }
-    }
+      });
+    else setError('Validation error');
   };
 
-  const dispatch = useDispatch();
-  const employeesData = useSelector((state: any) => {
-    return state.employees;
-  });
+  // console.log('emp', employeeData);
+  useEffect(() => {
+    if (isSuccess) navigate(`/employee`);
+  }, [isSuccess]);
 
   useEffect(() => {
-    const emp = employeesData.find((employee) => employee.id === Number(id));
+    // const emp = employeesData.find((employee) => employee.id === Number(id));
 
-    if (emp) {
-      setName(emp.name);
-      setDate(emp.joiningDate);
-      setExperience(emp.experience);
-      setRole(emp.role);
-      setLine1(emp.address.line1);
-      setLine2(emp.address.line2);
-      setCity(emp.address.city);
+    if (employeeData) {
+      console.log('dept', employeeData?.data?.departmentId);
+      setName(employeeData?.data?.name);
+      setUsername(employeeData?.data?.username);
+      setPassword(employeeData?.data?.password);
+      setDate(employeeData?.data?.joiningDate);
+      setExperience(employeeData?.data?.experience);
+      setRole(employeeData?.data?.role);
+      setDepartment(employeeData?.data?.departmentId);
+      setLine1(employeeData?.data?.address?.line1);
+      setLine2(employeeData?.data?.address?.line2);
+      setCity(employeeData?.data?.address?.city);
+      setPin(employeeData?.data?.address?.pin);
+      setCountry(employeeData?.data?.address?.country);
+      setState(employeeData?.data?.address?.state);
     }
+  }, [employeeData]);
+
+  useEffect(() => {
+    if (id) getEmployeeById(id);
   }, [id]);
 
-  //   const rolechoice = [
-  //     { value: 'admin', label: 'Admin' },
-  //     { value: 'user', label: 'User' }
-  //   ];
-  //   const statusOptions = [{ value: 'active', label: 'Active' }];
+  const handleEdit = (e, id) => {
+    e.stopPropagation();
+    edit({
+      id,
+      body: {
+        name: name,
+        username: username,
+        password: password,
+        joiningDate: date,
+        experience: Number(experience),
+        departmentId: Number(department),
+        role: role,
+        address: {
+          line1: line1,
+          line2: line2,
+          city: city,
+          pin: pin,
+          state: state,
+          country: country
+        }
+      }
+    });
+  };
 
+  useEffect(() => {
+    if (isEditSuccess) navigate(`/employee`);
+  }, [isEditSuccess]);
+
+  // const dispatch = useDispatch();
+  // const employeesData = useSelector((state: any) => {
+  //   return state.employees;
+  // });
   return (
     <div className='outer1'>
       <div className='create-box'>
@@ -113,6 +165,24 @@ const Details: FC = () => {
           placeholder='Employee Name'
           onChange={function (e: any) {
             setName(e.target.value);
+          }}
+        />
+        <Input
+          label='Username'
+          type='text'
+          value={username}
+          placeholder='Username'
+          onChange={function (e: any) {
+            setUsername(e.target.value);
+          }}
+        />
+        <Input
+          label='Password'
+          type='text'
+          value={password}
+          placeholder='Password'
+          onChange={function (e: any) {
+            setPassword(e.target.value);
           }}
         />
         <Input
@@ -133,21 +203,14 @@ const Details: FC = () => {
             setExperience(e.target.value);
           }}
         />
-        <Dropdown
-          label='Department'
-          value={department}
-          onChange={(e) => setDepartment(e.target.value)}
-          placeholder='Choose Department'
-          // options={departmentchoice}
-        />
-        <Dropdown
-          label='Role'
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          placeholder='Choose Role'
-        />
-        <Input label='Status' type='text' value='Active' onChange={() => {}} placeholder='Status' />
 
+        <Dropdown
+          label=' Department'
+          value={department}
+          onChange={(value: string) => setDepartment(value)}
+          placeholder='Choose Role'
+          options={departmentchoice}
+        />
         <div className='address'>
           <Input
             label='Address'
@@ -176,7 +239,43 @@ const Details: FC = () => {
               setCity(e.target.value);
             }}
           />
+          <input
+            className='address-lines'
+            type='number'
+            value={pin}
+            placeholder='Pin'
+            onChange={(e) => {
+              setPin(e.target.value);
+            }}
+          />
+          <input
+            className='address-lines'
+            type='text'
+            value={state}
+            placeholder='state'
+            onChange={(e) => {
+              setState(e.target.value);
+            }}
+          />
+          <input
+            className='address-lines'
+            type='text'
+            value={country}
+            placeholder='country'
+            onChange={(e) => {
+              setCountry(e.target.value);
+            }}
+          />
         </div>
+        <Dropdown
+          label='Role'
+          value={role}
+          onChange={(value: string) => setRole(value)}
+          placeholder='Choose Role'
+          options={rolechoice}
+        />
+        <Input label='Status' type='text' value='Active' onChange={() => {}} placeholder='Status' />
+
         {id ? (
           <Input
             label='Employee ID'
@@ -196,6 +295,8 @@ const Details: FC = () => {
         />
         <SmallButton label='Cancel' color='white' onClick={() => navigate(`/employee`)} />
       </div>
+      {isError && <div>API error</div>}
+      {error && <div>{error}</div>}
     </div>
   );
 };

@@ -2,10 +2,10 @@ import React from 'react';
 import { FC } from 'react';
 import './Styles.css';
 
-type InputPropType = {
+export type InputPropType = {
   value: string;
-  onChange: (e) => void;
-  type: 'text' | 'password' | 'number';
+  onChange?: (e) => void;
+  type?: 'text' | 'password' | 'number';
   placeholder: string;
   label: string;
 };
@@ -13,7 +13,7 @@ type InputPropType = {
 const Input: FC<InputPropType> = (props) => {
   return (
     <div className='input-container'>
-      <label>{props.label}</label>
+      <label data-testid='Test Label'>{props.label}</label>
       <input
         type={props.type}
         onChange={props.onChange}

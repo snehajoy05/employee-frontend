@@ -2,7 +2,7 @@ import { FC } from 'react';
 import './subheader.css';
 import { useNavigate } from 'react-router-dom';
 
-type SubheaderPropType = {
+export type SubheaderPropType = {
   label: string;
 };
 
@@ -11,8 +11,11 @@ const Subheader: FC<SubheaderPropType> = (props) => {
 
   return (
     <div className='subheader'>
-      <div className='heading'>{props.label}</div>
+      <div className='heading' data-testid='Test Label'>
+        {props.label}
+      </div>
       <button
+        data-testid='button2-test'
         type='button'
         onClick={() => navigate(`/employee/create`)}
         className='create_employee'

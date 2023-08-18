@@ -5,15 +5,22 @@ type DropdownPropstype = {
   onChange: (e) => void;
   label: string;
   placeholder: string;
-  //   type: string;
+  options: { value: string; label: string }[];
 };
 const Dropdown: FC<DropdownPropstype> = (props) => {
   return (
     <div className='dropdown'>
       <label>{props.label}</label>
-      <select className='options' onChange={props.onChange} value={props.value}>
-        <option>a</option>
-        <option>b</option>
+      <select
+        className='options'
+        onChange={(e) => props.onChange(e.target.value)}
+        value={props.value}
+      >
+        {props.options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
       </select>
     </div>
   );

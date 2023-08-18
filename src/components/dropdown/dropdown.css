@@ -17,5 +17,5 @@ margin-top: 10px;
     .dropdown{
         flex-direction: column;
         display: flex;
-        margin-top: 30px;
+        margin-top: 20px;
     }

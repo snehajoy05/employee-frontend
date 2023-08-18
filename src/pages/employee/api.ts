@@ -3,8 +3,11 @@ import baseApi from '../../services';
 export interface Employee {
   id: number;
   name: string;
+  username: string;
+  password: string;
   joiningDate: string;
   experience: number;
+  departmentId: number;
   role: string;
   address: {
     line1: string;
@@ -23,8 +26,20 @@ export const employeeApi = baseApi.injectEndpoints({
     }),
     getEmployeeDetails: builder.query<{ data: Employee }, string>({
       query: (id) => `/employees/${id}`
+    }),
+    getDepartmentList: builder.query<any, void>({
+      query: () => '/departments'
+    }),
+    getRoleList: builder.query<any, void>({
+      query: () => '/roles'
     })
   })
 });
 
-export const { useGetEmployeeListQuery, useGetEmployeeDetailsQuery } = employeeApi;
+export const {
+  useGetEmployeeListQuery,
+  useGetEmployeeDetailsQuery,
+  useGetDepartmentListQuery,
+  useGetRoleListQuery,
+  useLazyGetEmployeeDetailsQuery
+} = employeeApi;

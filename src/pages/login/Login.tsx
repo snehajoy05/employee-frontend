@@ -15,7 +15,10 @@ const Login: FC = () => {
   const [login, { data, isSuccess }] = useLoginMutation();
 
   useEffect(() => {
-    if (data && isSuccess) localStorage.setItem('token', data.data);
+    if (data && isSuccess) {
+      localStorage.setItem('token', data.data);
+      localStorage.setItem('role', data.data.employeedetails.role);
+    }
   }, [data, isSuccess]);
 
   const onSubmit = () => {
